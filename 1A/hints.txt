@@ -1,0 +1,21 @@
+What to turn in?  Just one file, named either proj1A.c or proj1A.cpp.  Note that if you submit multiple times, then Canvas will change the name to be proj1A-1.c, etc.  That's OK -- we can handle that.
+
+== Some Hints ==
+
+1) please, please do not write a bunch of code without testing.  Please, please do not just try to implement it all, then try to get it to compile, and then run it.  It almost certainly will not work, and then it is tough to debug.  Instead, break this up into pieces, and test as you go.
+
+2) I started by making sure I had "pnmtopng" installed.  That way I could look at what I was getting.  There are also websites that do conversions if installing the software seems tricky.  Also, after I had pnmtopng working, I converted the PNM solution to a PNG and opened it and confirmed it looked good.
+
+3) Then I wrote more code than I would like to without being able to stop and test: (1) an Image struct, (2) a main function that created an all-white image and called the function to write a PNM, and (3) a function to write a PNM file from an image (with fopen, fprintf, and fwrite).  I then compiled it and made sure it worked.  (inspected the P6 file with vi, then ran pnmtopng and looked at that output).
+
+4) Then I played with doing a single color (first red, then blue) and made sure things were working as expected.
+
+5) Then I wrote a function called AssignPixels with the following signature: void AssignPixels(Image *img, int colMin, int colMax, int rowMin, int rowMax, unsigned char R, unsigned char G, unsigned char B);
+
+6) Once I had all those pieces working, I called AssignPixels a bunch of times to make the desired pattern.
+
+7) Then I ran the checker script on my Mac.  It validated the code was working.
+
+8) Then I scp'd everything to ix-dev and ssh'd there and validated it was working there.    See: https://uoregon.zoom.us/rec/play/3c2hZ4Okr6R658GJRhnJJ_YyCWOgdtrT_WGvRHp39hIHUdiefk-KTc-EpPNzwoaupGjTEOslDy1CarFK.KqcM27ILj19m6NAP, Links to an external site.Passcode: 5&w*j=?S
+
+9) I would have felt good about submitting at that point.
