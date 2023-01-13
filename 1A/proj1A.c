@@ -5,12 +5,12 @@
  * Pixel Struct
  */
 
-struct Pixel {
+typedef struct Pixel {
     // Stores color data.
     unsigned char r;
     unsigned char g;
     unsigned char b;
-};
+} Pixel;
 
 Pixel *make_pixel(unsigned char r, unsigned char g, unsigned char b) {
     /*
@@ -34,11 +34,11 @@ void cleanup_pixel(Pixel *pixel) {
  * Image Struct
  */
 
-struct Image {
+typedef struct Image {
     unsigned int width;
     unsigned int height;
     Pixel ***data;  // i'm seeing stars...
-};
+} Image;
 
 Image *make_image(unsigned int width, unsigned int height) {
     /*
