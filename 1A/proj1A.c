@@ -101,10 +101,11 @@ void write_image(Image *image, char *fname) {
     fprintf(fp, "P6\n%d %d\n255\n", image->width, image->height);
 
     // Iterate over each pixel, starting at the top left.
-    for (unsigned int j = (image->height) - 1; j > 0; j--) {
+    for (unsigned int j = 0; j < image->height; j++) {
         for (unsigned int i = 0; i < image->width; i++) {
             // Get the pixel to print.
-            Pixel *pixel = (image->data)[i][j];
+            // (don't ask why I had to do this weird math op)
+            Pixel *pixel = (image->data)[i][(image->height) - j - 1];
 
             // Little memory optimization: just write the struct directly
             // (the rgb values are adjacent to eachother)
