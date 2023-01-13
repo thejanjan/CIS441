@@ -1,3 +1,18 @@
+Your job is to produce a C or C++ program that can create an image.  Your code should be named proj1A.c (C code) or proj1A.cpp (C++ code).  It should produce an image of type PNM that is named proj1A_out.pnm.  You must follow exactly these conventions (proj1A.c/proj1A.cpp and proj1A_out.pnm) to work with our grader scripts.
+
+Your program should produce a 300x300 pixel image as follows:
+-- The upper left 100x100 pixels should be black (0, 0, 0). 
+-- The upper middle 100x100 pixels should be gray (128, 128, 128).
+-- The upper right 100x100 pixels should be white (255, 255, 255).
+
+-- The middle left 100x100 pixels should be red (255, 0, 0). 
+-- The central 100x100 pixels should be green (0, 255, 0).
+-- The middle right 100x100 pixels should be blue (0, 0, 255).
+
+-- The bottom left 100x100 pixels should be purple (255, 0, 255). 
+-- The bottom middle 100x100 pixels should be cyan (0, 255, 255).
+-- The bottom right 100x100 pixels should be yellow (255, 255, 0).
+
 What to turn in?  Just one file, named either proj1A.c or proj1A.cpp.  Note that if you submit multiple times, then Canvas will change the name to be proj1A-1.c, etc.  That's OK -- we can handle that.
 
 == Some Hints ==
