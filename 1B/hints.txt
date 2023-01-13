@@ -1,0 +1,96 @@
+Implement the scanline algorithm for a set of 100 "going up" triangles and fill up the image buffer with their colors.   The image you make should be 1000x1000.  You should assume the "going up" triangles overlap with the pixels and apply the conventions discussed in Lecture 2 -- if a triangle overlaps with the lower left of a pixel, then the pixel should take its color.
+
+You should verify it is correct using the checker script: proj1B_checker Download proj1B_checker.  When you are done, upload your code to Canvas.  Your C file should be named proj1B.c and it should output a file called proj1B_out.pnm.
+
+If your code does not produce exactly the same image on ix-dev, you should expect to get less than half credit. 
+
+What to turn in: Just one file, named either proj1B.c or proj1B.cpp, and it should output a file called proj1B_out.pnm
+
+IMPORTANT: you should use “double” to get double precision (8 byte) floating type. The word “float” should not appear in your code. If you use float, then you will get mostly the right picture, but you will have ~30 pixels wrong.
+
+Some more notes:
+
+1) I began my implementation by figuring out which vertex was which, i.e., which was top, which was bottom-left, and which was bottom-right.
+
+2) Some pixels may be outside the screen. Plan for that.
+
+3) Don’t forget to use double precision and the F441 and C441 functions.
+
+4) Be careful about which quantities you want to be integers and which you want to be double precision.
+
+5) Don't forget about the change of conventions where you adjust the row (see end of lecture 2).
+
+6) What I printed when debugging:
+
+a. The triangle (I added a print method)
+
+b. Which vertices were which (top-left, bottom-left, right)
+
+c. The range of scanlines for a triangle
+
+7) FINALLY: start by working on just a single triangle and get that working entirely. Then try all of the triangles at once. Below are my print statements for triangle 55.
+
+Triangle: (555.000000, 500.000000), (500.000000, 560.000000), (605.000000, 500.000000)
+Identified: top = 1, bottom left = 0,  bottom right = 2
+Scanlines go from 500 to 560
+Scanline 500: intercepts go from 555 to 605
+Scanline 501: intercepts go from 555 to 603
+Scanline 502: intercepts go from 554 to 601
+Scanline 503: intercepts go from 553 to 599
+Scanline 504: intercepts go from 552 to 598
+Scanline 505: intercepts go from 551 to 596
+Scanline 506: intercepts go from 550 to 594
+Scanline 507: intercepts go from 549 to 592
+Scanline 508: intercepts go from 548 to 591
+Scanline 509: intercepts go from 547 to 589
+Scanline 510: intercepts go from 546 to 587
+Scanline 511: intercepts go from 545 to 585
+Scanline 512: intercepts go from 544 to 584
+Scanline 513: intercepts go from 544 to 582
+Scanline 514: intercepts go from 543 to 580
+Scanline 515: intercepts go from 542 to 578
+Scanline 516: intercepts go from 541 to 577
+Scanline 517: intercepts go from 540 to 575
+Scanline 518: intercepts go from 539 to 573
+Scanline 519: intercepts go from 538 to 571
+Scanline 520: intercepts go from 537 to 570
+Scanline 521: intercepts go from 536 to 568
+Scanline 522: intercepts go from 535 to 566
+Scanline 523: intercepts go from 534 to 564
+Scanline 524: intercepts go from 533 to 563
+Scanline 525: intercepts go from 533 to 561
+Scanline 526: intercepts go from 532 to 559
+Scanline 527: intercepts go from 531 to 557
+Scanline 528: intercepts go from 530 to 556
+Scanline 529: intercepts go from 529 to 554
+Scanline 530: intercepts go from 528 to 552
+Scanline 531: intercepts go from 527 to 550
+Scanline 532: intercepts go from 526 to 549
+Scanline 533: intercepts go from 525 to 547
+Scanline 534: intercepts go from 524 to 545
+Scanline 535: intercepts go from 523 to 543
+Scanline 536: intercepts go from 522 to 542
+Scanline 537: intercepts go from 522 to 540
+Scanline 538: intercepts go from 521 to 538
+Scanline 539: intercepts go from 520 to 536
+Scanline 540: intercepts go from 519 to 535
+Scanline 541: intercepts go from 518 to 533
+Scanline 542: intercepts go from 517 to 531
+Scanline 543: intercepts go from 516 to 529
+Scanline 544: intercepts go from 515 to 528
+Scanline 545: intercepts go from 514 to 526
+Scanline 546: intercepts go from 513 to 524
+Scanline 547: intercepts go from 512 to 522
+Scanline 548: intercepts go from 511 to 521
+Scanline 549: intercepts go from 511 to 519
+Scanline 550: intercepts go from 510 to 517
+Scanline 551: intercepts go from 509 to 515
+Scanline 552: intercepts go from 508 to 514
+Scanline 553: intercepts go from 507 to 512
+Scanline 554: intercepts go from 506 to 510
+Scanline 555: intercepts go from 505 to 508
+Scanline 556: intercepts go from 504 to 507
+Scanline 557: intercepts go from 503 to 505
+Scanline 558: intercepts go from 502 to 503
+Scanline 559: intercepts go from 501 to 501
+Scanline 560: intercepts go from 500 to 500
