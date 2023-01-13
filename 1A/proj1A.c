@@ -127,7 +127,6 @@ void draw_square(Image *image,
                  unsigned int width, unsigned int height) {
     /*
      * Draws a square at given coordinates.
-     * Uses a pixel struct for color reference.
      */
     for (unsigned int i = xstart; i < (xstart + width); i++) {
         for (unsigned int j = ystart; j < (ystart +height); j++) {
@@ -165,7 +164,7 @@ int main(int argc, char *argv[]) {
     draw_square(image,   0, 255, 255, 100,   0, 100, 100);
     draw_square(image, 255, 255,   0, 200,   0, 100, 100);
 
-    // Print this image. (Sorry ISO C++)
+    // Print this image.
     write_image(image, "proj1A_out.pnm");
 
     // Cleanup.
