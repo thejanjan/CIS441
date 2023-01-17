@@ -1,0 +1,45 @@
+== Phase 1 ==
+
+Create a single triangle and verify that your algorithms works on this triangle.  The details of the triangle are up to you, but I recommend you start by having unique values for every X and Y position.  After you have that working, I recommend you try some degenerate cases (going up, going down, going left, going right).
+
+Only proceed to Phase 2 when you truly believe your scanline algorithm is working. 
+
+Also, note that Phase 2 has a non-square image.  So I recommend you change your image to non-square and make sure you do not have any lurking bugs that assumes the image is square.
+
+Finally, when you are done with Phase 1, make a copy of your code for reference.  Phase 2 can get tricky and folks sometimes contort their code to understand an issue.  It is often useful to have something you can refer back to.
+
+== Phase 2 ==
+
+Download my test infrastructure and confirm your code works with my test infrastructure.
+
+As a PNG, you should produce this image:
+
+Note the image is 1786x1344 pixels.
+
+Here's what you need:
+-- A file that contains 2.5M triangles: tris.txt Download tris.txt    # note: this is big!  250MB
+-- Starter code that can read the file: proj1C_starter.cDownload proj1C_starter.c
+-- A checker script: proj1C_checkerDownload proj1C_checker
+-- The solution as a PNM: proj1C_soln.pnmDownload proj1C_soln.pnm
+
+If your code does not produce exactly the correct image on ix-dev, you should expect to get less than half credit. 
+
+What to submit to Canvas: Just one file, named either proj1C.c or proj1C.cpp, and it should output a file called proj1C_out.pnm.  This file should not have excessive print statements.  Explicitly, if you print more than 30 lines of output, then you will receive a 1.5 point deduction.  (I have previously received submissions that take minutes to run because they have so many print statements.)
+
+== Debugging notes ==
+
+1) Once again, the word "float" should not occur in your code.  Use doubles.
+2) Always good to add sanity checks to confirm that the top scanline is truly bigger than the bottom scanline and the left intercept is truly to the left of the right intercept.
+3) In Phase II, no scanline contributes 5 or more pixels.  But if your code has a mistake in it, then you might get more than 5 pixels.  (And you get a "blurry" sort of image.)  An easy way to debug this is to call abort()  and then inspect within a debugger.
+
+            if (rightIntercept - leftIntercept > 5)
+               abort();
+
+4) In Phase II, no triangle should have more than 5 total scanlines.  But if your code has a mistake in it, then you might get more than 5 scanlines.  An easy way to debug this is to call abort() and then inspect within a debugger.
+
+           if (topScanline - bottomScanline > 5)
+              abort();
+
+5) In Phase II, you can some times end with a picture that is very close to correct, but has just a few pixels off.  In my initial implementation, I was off by 27 pixels.  Here's the game plan for debugging this.  First, download differencer.c Download differencer.c and triangle_ids.txt Download triangle_ids.txt(big: 75MB).  Run differencer to find a pixel that is different.  For me, one of the pixels was col=879, row=1316.  So I think opened up triangle_ids.txt and found the corresponding entry.  It told me that the color should come from triangle 2506935.  I then modified my code work on only triangle 2506935 and added a bunch of print statements.  That led me to find the issue.
+
+6) Here are print statements for the first two triangles: first20Tris
