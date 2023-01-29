@@ -1,0 +1,87 @@
+Extend your code to support arbitrary camera positions using the approach discussed in lecture (camera transform, view transform, device space transform).
+
+At a very high level, your code could be something like this:
+
+TriangleList *tl = GetTriangles();
+Image *img = AllocateScreen(1000, 1000);
+for (int i = 0 ; i < 1000 ; i++) {
+
+    if (i % 250 != 0)
+        continue;
+    InitializeScreen(img);   
+    Camera c = GetCamera(i, 1000);
+    TransformAndRenderTriangles(c, tl, img);
+    SaveImage(img, filename);
+}
+
+There are two versions of starter code, one for C and one for C++:
+- C: proj1E_starter.cDownload proj1E_starter.c
+- C++: proj1E_starter.cppDownload proj1E_starter.cpp
+
+There is also a new data file: ws_tris.txt Download ws_tris.txt.  The data set is of an aneurysm and the colors correspond to pressure on the artery.
+
+Your code must produce 4 images, called frame0000.pnm, frame0250.png, frame0500.png, and frame0750.png.  ("sprintf" with "%04d" formatting is useful for generating the names.)  The exact positions for each camera are calculated from the starter code: GetCamera(0, 1000), GetCamera(250, 1000), GetCamera(500, 1000), and GetCamera(750, 1000). 
+
+The images look like this:
+
+proj1E_frame0000.pngproj1E_frame0250.png
+
+proj1E_frame0500.pngproj1E_frame0750.png
+
+The output images should each be 1000x1000 and their background color should be black (0,0,0).  Keep in mind you will be doing multiple renderings and need to initialize the color and z-buffers for each rendering.
+
+Note that differencer will no longer produce perfect outputs. If you get every pixel different, then your program is wrong. But if you have <200 pixels (or less) different, then you should declare victory.
+
+== Tips ==
+
+(1) All vertex multiplications use 4D points. Make sure you send in 4D points for input and output, or you will get weird memory errors.
+
+       a. Also don’t forget to divide by “w”!
+
+(2) People often get a matrix confused with its transpose. Use the Matrix print function to make sure the matrix you are setting up is what you think it should be. Also, remember the points are left multiplied, not right multiplied.
+
+(3) Regarding multiple renderings:
+
+     a. Don’t forget to initialize the screen between each render
+     b. If you modify the triangle in place to render, don’t forget to switch it back at the end of the render
+
+== Debugging ==
+
+This file has some print statements: 1E_debugging_output Download 1E_debugging_output.  I encourage you to match these statements one-by-one to make sure you are getting things right.
+
+There are also some 100MB files that have the triangle that deposits the "winning" fragment to each pixel:
+- proj1E_frame0000_debug.txtDownload proj1E_frame0000_debug.txt
+- proj1E_frame0250_debug.txtDownload proj1E_frame0250_debug.txt
+- proj1E_frame0500_debug.txtDownload proj1E_frame0500_debug.txt
+- proj1E_frame0750_debug.txtDownload proj1E_frame0750_debug.txt
+
+You only download one of these four files if your output is mismatched and you want to debug why.
+
+== Submission ==
+
+As per usual, you should confirm you solution is correct on ix-dev.  Here are the things you need:
+- the checker script: proj1E_checkerDownload proj1E_checker
+- a version of differencer that checks to see if <200 pixels are different: counter.cDownload counter.c
+- proj1E_soln_frame0000.pnmDownload proj1E_soln_frame0000.pnm
+- proj1E_soln_frame0250.pnmDownload proj1E_soln_frame0250.pnm
+- proj1E_soln_frame0500.pnmDownload proj1E_soln_frame0500.pnm
+- proj1E_soln_frame0750.pnmDownload proj1E_soln_frame0750.pnm
+
+You will need to transfer all six of these files to ix-dev and have them in the same directory as your code.
+
+What to submit to Canvas: Just one file, called proj1E.c or proj1E.cpp.   Also, once again make sure you output no more than 30 lines of output.
+
+== Going further ==
+
+This section is just about things you may want to do for yourself after the project is completed.  Anything suggested in this section will not be graded.
+
+'If you remove this code:
+
+    if (i % 250 != 0)
+        continue;
+
+then it will produce 1000 images that represent a smooth fly through.  You can then use those 1000 images with a program like ffmpeg to make a .mp4.
+
+My camera path is not particularly good, either.  You may want to find a better path for the camera to follow.
+
+Finally, note that Project 1F will add lighting effects.  If you want to make a really nice movie, you may want to wait until that project is complete.  But you can get started now.
