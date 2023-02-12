@@ -1,3 +1,3 @@
 make
 ./proj1E
-pnmtopng < proj1E_out.pnm > proj1E_out.png
+pnmtopng < frame0000.pnm > frame0000.png

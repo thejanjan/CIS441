@@ -52,3 +52,6 @@ Mkfile.old
 dkms.conf
 1C/tris.txt
 1D/zrgb_info
+1F/movie/*
+1F/movie_png/*
+1F/video.mp4

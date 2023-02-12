@@ -1,0 +1,66 @@
+There are two parts to this project: (1) extend your 1E code to do Phong shading as per class lecture and (2) generate a movie.
+Use the same data file as 1E: ws_tris.txt Download ws_tris.txt 
+
+== Code changes ==
+
+There is starter code (proj1F_starter.c Download proj1F_starter.c) which defines a data structure that contains the parameters for shading. I pasted the contents of this file into my code, and encourage you all to do the same. This file also contains a function called GetLighting(). This function should be called for every render, since the light position updates with the camera.
+
+You do not need new reader code or a new geometry file.  That said, the code you got from 1E's starter code has "#ifdef NORMALS" in it.  You need those normals now, so add "#define NORMALS" early in your code.  Note you will need to add "double normals[3][3];" as a data member in your Triangle struct.  
+
+Normals is indexed by the vertex first and the dimension second.
+
+int vertexId = 0;
+int x = 0, y = 1, z =2;
+normals[vertexId][y] = …;
+
+Note: I also added a “double shading[3];” data member to Triangle. I found this to be a helpful location to store per-vertex shading information.
+
+== One-sided lighting ==
+
+You will do one-sided lighting, so it is very important you get the conventions correct.
+
+Conventions on vector directions:
+
+(1) The light source is coming from the triangles. Explicitly, if a triangle vertex is at (0,0,0) and if the light source is at (10,0,0), then the light direction is (1, 0, 0).
+
+(2) The view direction is coming from a triangle vertex. Explicitly, if a triangle vertex is at (0,0,0) and if the camera is at (0,10,0), then the view direction is (0, 1, 0).
+
+This image further clarifies:
+
+vector_conventions.png
+
+
+== Movie ==
+
+My version of the movie can be found here: https://ix.cs.uoregon.edu/~hank/441/proj1F/proj1F.mp4
+
+I expect most of you will use ffmpeg.  But you can use whatever encoder you like.  I am happy for you all to share notes on Canvas discussion on how you did it.  (With the C code, we need to be careful not to share too much and make the project trivial.  With the movie encoding, it is OK to share all of your notes.)
+
+== Reference images / debugging / checker ==
+
+Here is the solution for GetCamera(0,1000): proj1F_soln.pnmDownload proj1F_soln.pnm
+
+proj1F_soln.png
+And here are the images when doing just ambient, diffuse, or specular:
+
+ambient.pngdiffuse.pngspecular.png
+
+Also, here is a file with print statements for the first ten triangles: first_ten_shading.txtDownload first_ten_shading.txt
+
+Here is the checker script: proj1F_checkerDownload proj1F_checker
+
+It once again requires you use the counter program we used to verify 1E: counter.cDownload counter.c
+
+Finally, you are again allowed to have up to 200 pixels different.
+
+== What to turn in ==
+
+You should turn in only one file: proj1F.c.  It should produce a single image: proj1F_frame0000.pnm.  It should have no more than 30 lines of print statements.  Finally, there should be a comment in your code with a link to your movie file, i.e., a YouTube link, a Google Drive link, etc.  This comment should be at the very top of your proj1F.c.
+
+Note: incorrect images are likely to earn less than half credit. I’d rather have correct submissions late than incorrect submissions on time.
+
+Grading rubric:
+-  Code with everything correct: 3.25 points
+- Movie (on a website or the cloud): 1.75 points
+
+(Part of this assignment is learning a movie encoder … install software, learn to use it, etc. If you want to skip that, you will lose 1.75 points.)

@@ -3,6 +3,8 @@
 #include <math.h>
 #include <string.h>
 
+#define NORMALS
+
 /*
  * Rounding Functions
  */
@@ -26,6 +28,7 @@ typedef struct {
     double color[3][3]; // color[2][0] is for V2, red channel
 #ifdef NORMALS
     double normals[3][3]; // normals[2][0] is for V2, x-component
+    double shading[3];
 #endif
 } Triangle;
 
@@ -55,70 +58,6 @@ double lerp(double a, double b, double t) {
      */
     return (t * a) + ((1 - t) * b);
 }
-
-typedef struct FragmentLerpData {
-    // Data struct for holding fragment lerp data.
-    double z[2];
-    double color[3][2];
-} FragmentLerpData;
-
-struct FragmentLerpData *get_fragment_lerp(Triangle *tri, int v1, int v2, int v3,
-                                           double l_xpos, double r_xpos, double ypos) {
-    /*
-     * Given a triangle, ordered vertices, left/right intercept
-     * positions and a target ypos,
-     * return the useful left/right data we get from lerping those vertices.
-     */
-    // First: We need to calculate the lerp amounts.
-    // We'll do this by calculating a general theta
-    // for us to lerp our values by.
-    // We need to get some useful constants first.
-    double x1 = tri->X[v1];
-    double y1 = tri->Y[v1];
-    double x2 = tri->X[v2];
-    double y2 = tri->Y[v2];
-    double x3 = tri->X[v3];
-    double y3 = tri->Y[v3];
-
-    // First, calculate the distance between the endpoints.
-    double l_distance = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
-    double r_distance = sqrt(pow(x3 - x2, 2) + pow(y3 - y2, 2));
-
-    // Then calculate the distance between one point and the checked point.
-    double pl_distance = sqrt(pow(x2 - l_xpos, 2) + pow(y2 - ypos, 2));
-    double pr_distance = sqrt(pow(x3 - r_xpos, 2) + pow(y3 - ypos, 2));
-
-    // Calculate the 'theta' to lerp by.
-    // But sanity check first just in case...
-    if (l_distance == 0 || r_distance == 0) {
-        // No distance, avoid dividing by zero.
-        printf("get_fragment_lerp received bad distance\n");
-        abort();
-    }
-
-    double l_theta = pl_distance / l_distance;
-    double r_theta = pr_distance / r_distance;
-
-    // Now that we've got the theta,
-    // build the fragment lerp data to use.
-    struct FragmentLerpData *fld = (struct FragmentLerpData *)malloc(sizeof(struct FragmentLerpData));
-
-    // And populate it.
-    fld->z[0] = lerp(tri->Z[v1], tri->Z[v2], l_theta);
-    fld->z[1] = lerp(tri->Z[v2], tri->Z[v3], r_theta);
-    for (int i = 0; i < 3; i++) {
-        fld->color[i][0] = lerp(tri->color[v1][i], tri->color[v2][i], l_theta);
-        fld->color[i][1] = lerp(tri->color[v2][i], tri->color[v3][i], r_theta);
-    }
-
-    // Return the FLD.
-    // They are responsible for freeing it.
-    return fld;
-}
-
-/*
- * Project 5 specs
- */
 
 typedef struct
 {
@@ -173,8 +112,6 @@ TransformPoint(Matrix m, const double *ptIn, double *ptOut)
     ptOut[3] /= ptOut[3];
 }
 
-
-
 typedef struct
 {
     double          near, far;
@@ -183,7 +120,6 @@ typedef struct
     double          focus[3];
     double          up[3];
 } Camera;
-
 
 double SineParameterize(int curFrame, int nFrames, int ramp)
 {  
@@ -226,6 +162,41 @@ GetCamera(int frame, int nframes)
     c.up[1] = 1;    
     c.up[2] = 0;    
     return c;       
+}
+
+
+typedef struct 
+{
+    double lightDir[3];  // The direction of the light source
+    double Ka;           // The coefficient for ambient lighting.
+    double Kd;           // The coefficient for diffuse lighting.
+    double Ks;           // The coefficient for specular lighting.
+    double alpha;        // The exponent term for specular lighting.
+} LightingParameters;
+
+
+LightingParameters 
+GetLighting(Camera c)
+{
+    LightingParameters lp;
+    lp.Ka = 0.3;
+    lp.Kd = 0.7;
+    lp.Ks = 2.8;
+    lp.alpha = 50.5;
+    lp.lightDir[0] = c.position[0]-c.focus[0];
+    lp.lightDir[1] = c.position[1]-c.focus[1];
+    lp.lightDir[2] = c.position[2]-c.focus[2];
+    double mag = sqrt(lp.lightDir[0]*lp.lightDir[0]
+                    + lp.lightDir[1]*lp.lightDir[1]
+                    + lp.lightDir[2]*lp.lightDir[2]);
+    if (mag > 0)
+    {
+        lp.lightDir[0] /= mag;
+        lp.lightDir[1] /= mag;
+        lp.lightDir[2] /= mag;
+    }
+
+    return lp;
 }
 
 char *
@@ -330,6 +301,9 @@ Get3DTriangles()
    return tl;
 }
 
+/*
+ * Math Ops
+ */
 
 void cross(double *a, double *b, double *out) {
     out[0] = a[1] * b[2] - a[2] * b[1];
@@ -347,6 +321,10 @@ void norm(double *a) {
     a[1] /= size;
     a[2] /= size;
 }
+
+/*
+ * Triangle Transformations
+ */
 
 Triangle *transform_triangle(Matrix M, Triangle *ref) {
     /*
@@ -371,6 +349,126 @@ Triangle *transform_triangle(Matrix M, Triangle *ref) {
 
     // Return it.
     return tri;
+}
+
+/*
+ * Fragment Interpolation 
+ */
+
+double calculate_phong_shading(Triangle *tri, LightingParameters lp, Camera c, int vertex) {
+    /*
+    typedef struct {
+        double lightDir[3];  // The direction of the light source
+        double Ka;           // The coefficient for ambient lighting.
+        double Kd;           // The coefficient for diffuse lighting.
+        double Ks;           // The coefficient for specular lighting.
+        double alpha;        // The exponent term for specular lighting.
+    } LightingParameters;
+
+    typedef struct {
+        double          near, far;
+        double          angle;
+        double          position[3];
+        double          focus[3];
+        double          up[3];
+    } Camera;
+    */
+    // Get the normal.
+    double *normal = tri->normals[vertex];
+
+    // Calculate the diffuse amount.
+    double diffuse = fmax(0, dot(lp.lightDir, normal));
+
+    // Calculate R and V vectors for specular.
+    double v[3] = {
+        c.position[0] - tri->X[vertex],
+        c.position[1] - tri->Y[vertex],
+        c.position[2] - tri->Z[vertex]
+    };
+    norm(v);
+
+    // R will be 2*(L dot N)*N - L.
+    double r[3] = {0, 0, 0};
+    double r_mult = 2 * dot(normal, lp.lightDir);
+    r[0] = (normal[0] * r_mult) - (lp.lightDir[0]);
+    r[1] = (normal[1] * r_mult) - (lp.lightDir[1]);
+    r[2] = (normal[2] * r_mult) - (lp.lightDir[2]);
+    norm(r);
+
+    // Now calculate specular.
+    double specular = 1 * pow(fmax(0, dot(r, v)), lp.alpha);
+    if (specular < 0) specular = -specular;
+
+    return lp.Ka + (diffuse * lp.Kd) + (specular * lp.Ks);
+}
+
+void apply_shading_to_triangle(Triangle *tri, LightingParameters lp, Camera c) {
+    tri->shading[0] = calculate_phong_shading(tri, lp, c, 0);
+    tri->shading[1] = calculate_phong_shading(tri, lp, c, 1);
+    tri->shading[2] = calculate_phong_shading(tri, lp, c, 2);
+}
+
+typedef struct FragmentLerpData {
+    // Data struct for holding fragment lerp data.
+    double z[2];
+    double color[3][2];
+    double shading[2];
+} FragmentLerpData;
+
+struct FragmentLerpData *get_fragment_lerp(Triangle *tri, int v1, int v2, int v3,
+                                           double l_xpos, double r_xpos, double ypos) {
+    /*
+     * Given a triangle, ordered vertices, left/right intercept
+     * positions and a target ypos,
+     * return the useful left/right data we get from lerping those vertices.
+     */
+    // First: We need to calculate the lerp amounts.
+    // We'll do this by calculating a general theta
+    // for us to lerp our values by.
+    // We need to get some useful constants first.
+    double x1 = tri->X[v1];
+    double y1 = tri->Y[v1];
+    double x2 = tri->X[v2];
+    double y2 = tri->Y[v2];
+    double x3 = tri->X[v3];
+    double y3 = tri->Y[v3];
+
+    // First, calculate the distance between the endpoints.
+    double l_distance = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+    double r_distance = sqrt(pow(x3 - x2, 2) + pow(y3 - y2, 2));
+
+    // Then calculate the distance between one point and the checked point.
+    double pl_distance = sqrt(pow(x2 - l_xpos, 2) + pow(y2 - ypos, 2));
+    double pr_distance = sqrt(pow(x3 - r_xpos, 2) + pow(y3 - ypos, 2));
+
+    // Calculate the 'theta' to lerp by.
+    // But sanity check first just in case...
+    if (l_distance == 0 || r_distance == 0) {
+        // No distance, avoid dividing by zero.
+        printf("get_fragment_lerp received bad distance\n");
+        abort();
+    }
+
+    double l_theta = pl_distance / l_distance;
+    double r_theta = pr_distance / r_distance;
+
+    // Now that we've got the theta,
+    // build the fragment lerp data to use.
+    struct FragmentLerpData *fld = (struct FragmentLerpData *)malloc(sizeof(struct FragmentLerpData));
+
+    // And populate it.
+    fld->z[0] = lerp(tri->Z[v1], tri->Z[v2], l_theta);
+    fld->z[1] = lerp(tri->Z[v2], tri->Z[v3], r_theta);
+    for (int i = 0; i < 3; i++) {
+        fld->color[i][0] = lerp(tri->color[v1][i], tri->color[v2][i], l_theta);
+        fld->color[i][1] = lerp(tri->color[v2][i], tri->color[v3][i], r_theta);
+    }
+    fld->shading[0] = lerp(tri->shading[v1], tri->shading[v2], l_theta);
+    fld->shading[1] = lerp(tri->shading[v2], tri->shading[v3], r_theta);
+
+    // Return the FLD.
+    // They are responsible for freeing it.
+    return fld;
 }
 
 
@@ -638,6 +736,7 @@ void draw_triangle(Image *image, Triangle *tri) {
             // Calculate the depth at this pixel.
             double theta = fmax(0, fmin((x - right) / (left - right), 1));
             double z = lerp(fld->z[0], fld->z[1], theta);
+            double s = lerp(fld->shading[0], fld->shading[1], theta);;
 
             // Get the pixel to write over.
             Pixel *pixel = (image->data)[(int)x][(int)y];
@@ -646,9 +745,9 @@ void draw_triangle(Image *image, Triangle *tri) {
             if (z <= pixel->z) continue;
 
             // Write over it.
-            pixel->r = C441(lerp(fld->color[0][0], fld->color[0][1], theta) * 255);
-            pixel->g = C441(lerp(fld->color[1][0], fld->color[1][1], theta) * 255);
-            pixel->b = C441(lerp(fld->color[2][0], fld->color[2][1], theta) * 255);
+            pixel->r = fmin(255, C441(lerp(fld->color[0][0], fld->color[0][1], theta) * 255 * s));
+            pixel->g = fmin(255, C441(lerp(fld->color[1][0], fld->color[1][1], theta) * 255 * s));
+            pixel->b = fmin(255, C441(lerp(fld->color[2][0], fld->color[2][1], theta) * 255 * s));
             pixel->z = z;
         }
 
@@ -658,14 +757,7 @@ void draw_triangle(Image *image, Triangle *tri) {
 }
 
 void transform_render_triangles(Camera c, TriangleList *tl, Image *img) {
-    // calculate camera transform
-    // camera frame is (u, v, w, O)
-    // O = camera position
-    // w = O-focus
-    // v = cross product of O-focus, u
-    // u = cross product of Up, O-focus
-    // #define DEBUG_TRT
-
+    // Valculate camera transform.
     double cf_o[3] = {
         c.position[0], c.position[1], c.position[2]
     };
@@ -698,7 +790,7 @@ void transform_render_triangles(Camera c, TriangleList *tl, Image *img) {
         {cf_z[0], cf_z[1], cf_z[2], 1}
     }};
 
-    // calculate view transform
+    // Calculate view transform.
     double vt_cot = 1 / tan(c.angle / 2);
     double far = c.far;
     double near = c.near;
@@ -720,7 +812,7 @@ void transform_render_triangles(Camera c, TriangleList *tl, Image *img) {
         {n/2, m/2, 0, 1}
     }};
 
-    // create composed matrix M
+    // Create composed matrix M.
     Matrix *CameraViewMatrix = ComposeMatrices(camera_transform, view_transform);
     Matrix *M = ComposeMatrices(*CameraViewMatrix, device_transform);
     free(CameraViewMatrix);
@@ -744,9 +836,18 @@ void transform_render_triangles(Camera c, TriangleList *tl, Image *img) {
         printf("Result: %f, %f, %f, %f\n", ptOut[0], ptOut[1], ptOut[2], ptOut[3]);
     #endif
 
+    // Apply lighting onto all of the triangles.
+    LightingParameters lp = GetLighting(c);
+
     // process each triangle over M and render it
     for (int i = 0; i < tl->numTriangles; i++) {
+        // Get the reference triangle.
         Triangle *ref = &((tl->triangles)[i]);
+
+        // Figure out the lighting for the triangle.
+        apply_shading_to_triangle(ref, lp, c);
+
+        // Get its tranformation, draw it and clean it up.
         Triangle *tri = transform_triangle(*M, ref);
         draw_triangle(img, tri);
         free(tri);
@@ -768,17 +869,17 @@ int main(int argc, char *argv[]) {
     TriangleList *tl = Get3DTriangles();
 
     for (int i = 0 ; i < 1000 ; i++) {
-        if (i % 250 != 0)
-            continue;
-
         initialize_screen(image);   
         Camera c = GetCamera(i, 1000);
         transform_render_triangles(c, tl, image);
 
         // Write to file.
-        char fname[14];
-        sprintf(fname, "frame%04d.pnm", i);
+        char fname[21];
+        sprintf(fname, "proj1F_frame%04d.pnm", i);
         write_image(image, fname);
+
+        // disable for movie mode!
+        break;
     }
 
     // Cleanup.

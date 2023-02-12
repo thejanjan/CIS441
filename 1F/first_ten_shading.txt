@@ -1,0 +1,311 @@
+Calling GetLighting and got a light direction of 0.000000, 0.707107, 0.707107
+Working on triangle 0
+	(-4.504080, -9.323600, 6.753840), color = (0.792784,0.242060,0.000000)
+	(-4.508720, -9.279840, 7.130560), color = (0.795324,0.243708,0.000000)
+	(-4.819120, -9.298240, 6.938400), color = (0.783785,0.236223,0.000000)
+ Working on vertex 0
+		View dir for pt -4.504080, -9.323600, 6.753840 is 0.075505, 0.826850, 0.557331
+		Normal is -0.012525, -0.993275, 0.115096
+		LdotN is -0.620966
+	Diffuse is 0.000000
+		Reflection vector R is 0.015555, 0.526474, -0.850049
+		RdotV is -0.037269
+	Specular component is 0.000000
+	Total value for vertex is 0.300000
+ Working on vertex 1
+		View dir for pt -4.508720, -9.279840, 7.130560 is 0.075895, 0.829525, 0.553289
+		Normal is -0.012572, -0.993272, 0.115117
+		LdotN is -0.620949
+	Diffuse is 0.000000
+		Reflection vector R is 0.015613, 0.526437, -0.850071
+		RdotV is -0.032458
+	Specular component is 0.000000
+	Total value for vertex is 0.300000
+ Working on vertex 2
+		View dir for pt -4.819120, -9.298240, 6.938400 is 0.080921, 0.827799, 0.555159
+		Normal is -0.012605, -0.993276, 0.115084
+		LdotN is -0.620976
+	Diffuse is 0.000000
+		Reflection vector R is 0.015655, 0.526493, -0.850035
+		RdotV is -0.034807
+	Specular component is 0.000000
+	Total value for vertex is 0.300000
+Working on triangle 1
+	(-4.612000, -8.997200, 6.911280), color = (0.850119,0.279251,0.000000)
+	(-4.819120, -9.298240, 6.938400), color = (0.783785,0.236223,0.000000)
+	(-4.508720, -9.279840, 7.130560), color = (0.795324,0.243708,0.000000)
+ Working on vertex 0
+		View dir for pt -4.612000, -8.997200, 6.911280 is 0.077770, 0.826216, 0.557959
+		Normal is -0.513017, 0.388394, 0.765482
+		LdotN is 0.815914
+	Diffuse is 0.571139
+		Reflection vector R is -0.837156, -0.073315, 0.542028
+		RdotV is 0.176750
+	Specular component is 0.000000
+	Total value for vertex is 0.871139
+ Working on vertex 1
+		View dir for pt -4.819120, -9.298240, 6.938400 is 0.080921, 0.827799, 0.555159
+		Normal is -0.571203, 0.410628, 0.710712
+		LdotN is 0.792907
+	Diffuse is 0.555035
+		Reflection vector R is -0.905822, -0.055927, 0.419951
+		RdotV is 0.113543
+	Specular component is 0.000000
+	Total value for vertex is 0.855035
+ Working on vertex 2
+		View dir for pt -4.508720, -9.279840, 7.130560 is 0.075895, 0.829525, 0.553289
+		Normal is -0.448298, 0.419878, 0.789133
+		LdotN is 0.854900
+	Diffuse is 0.598430
+		Reflection vector R is -0.766500, 0.010801, 0.642153
+		RdotV is 0.306082
+	Specular component is 0.000000
+	Total value for vertex is 0.898430
+Working on triangle 2
+	(-4.204240, -9.305120, 6.945760), color = (0.822168,0.261120,0.000000)
+	(-4.508720, -9.279840, 7.130560), color = (0.795324,0.243708,0.000000)
+	(-4.504080, -9.323600, 6.753840), color = (0.792784,0.242060,0.000000)
+ Working on vertex 0
+		View dir for pt -4.204240, -9.305120, 6.945760 is 0.070649, 0.828540, 0.555455
+		Normal is -0.012594, -0.993280, 0.115050
+		LdotN is -0.621002
+	Diffuse is 0.000000
+		Reflection vector R is 0.015642, 0.526552, -0.849999
+		RdotV is -0.034762
+	Specular component is 0.000000
+	Total value for vertex is 0.300000
+ Working on vertex 1
+		View dir for pt -4.508720, -9.279840, 7.130560 is 0.075895, 0.829525, 0.553289
+		Normal is -0.012572, -0.993272, 0.115117
+		LdotN is -0.620949
+	Diffuse is 0.000000
+		Reflection vector R is 0.015613, 0.526437, -0.850071
+		RdotV is -0.032458
+	Specular component is 0.000000
+	Total value for vertex is 0.300000
+ Working on vertex 2
+		View dir for pt -4.504080, -9.323600, 6.753840 is 0.075505, 0.826850, 0.557331
+		Normal is -0.012525, -0.993275, 0.115096
+		LdotN is -0.620966
+	Diffuse is 0.000000
+		Reflection vector R is 0.015555, 0.526474, -0.850049
+		RdotV is -0.037269
+	Specular component is 0.000000
+	Total value for vertex is 0.300000
+Working on triangle 3
+	(-4.304240, -8.982160, 7.080960), color = (0.879467,0.298287,0.000000)
+	(-4.508720, -9.279840, 7.130560), color = (0.795324,0.243708,0.000000)
+	(-4.176560, -9.266400, 7.283600), color = (0.773171,0.229338,0.000000)
+ Working on vertex 0
+		View dir for pt -4.304240, -8.982160, 7.080960 is 0.072740, 0.827779, 0.556319
+		Normal is -0.415942, 0.378616, 0.826827
+		LdotN is 0.852377
+	Diffuse is 0.596664
+		Reflection vector R is -0.709078, -0.061660, 0.702429
+		RdotV is 0.288156
+	Specular component is 0.000000
+	Total value for vertex is 0.896664
+ Working on vertex 1
+		View dir for pt -4.508720, -9.279840, 7.130560 is 0.075895, 0.829525, 0.553289
+		Normal is -0.448298, 0.419878, 0.789133
+		LdotN is 0.854900
+	Diffuse is 0.598430
+		Reflection vector R is -0.766500, 0.010801, 0.642153
+		RdotV is 0.306082
+	Specular component is 0.000000
+	Total value for vertex is 0.898430
+ Working on vertex 2
+		View dir for pt -4.176560, -9.266400, 7.283600 is 0.070446, 0.830977, 0.551828
+		Normal is -0.352325, 0.412177, 0.840224
+		LdotN is 0.885581
+	Diffuse is 0.619907
+		Reflection vector R is -0.624026, 0.022926, 0.781067
+		RdotV is 0.406106
+	Specular component is 0.000000
+	Total value for vertex is 0.919907
+Working on triangle 4
+	(-4.204240, -9.305120, 6.945760), color = (0.822168,0.261120,0.000000)
+	(-4.176560, -9.266400, 7.283600), color = (0.773171,0.229338,0.000000)
+	(-4.508720, -9.279840, 7.130560), color = (0.795324,0.243708,0.000000)
+ Working on vertex 0
+		View dir for pt -4.204240, -9.305120, 6.945760 is 0.070649, 0.828540, 0.555455
+		Normal is -0.012594, -0.993280, 0.115050
+		LdotN is -0.621002
+	Diffuse is 0.000000
+		Reflection vector R is 0.015642, 0.526552, -0.849999
+		RdotV is -0.034762
+	Specular component is 0.000000
+	Total value for vertex is 0.300000
+ Working on vertex 1
+		View dir for pt -4.176560, -9.266400, 7.283600 is 0.070446, 0.830977, 0.551828
+		Normal is -0.012637, -0.993300, 0.114875
+		LdotN is -0.621140
+	Diffuse is 0.000000
+		Reflection vector R is 0.015699, 0.526850, -0.849813
+		RdotV is -0.030044
+	Specular component is 0.000000
+	Total value for vertex is 0.300000
+ Working on vertex 2
+		View dir for pt -4.508720, -9.279840, 7.130560 is 0.075895, 0.829525, 0.553289
+		Normal is -0.012572, -0.993272, 0.115117
+		LdotN is -0.620949
+	Diffuse is 0.000000
+		Reflection vector R is 0.015613, 0.526437, -0.850071
+		RdotV is -0.032458
+	Specular component is 0.000000
+	Total value for vertex is 0.300000
+Working on triangle 5
+	(-4.304240, -8.982160, 7.080960), color = (0.879467,0.298287,0.000000)
+	(-4.612000, -8.997200, 6.911280), color = (0.850119,0.279251,0.000000)
+	(-4.508720, -9.279840, 7.130560), color = (0.795324,0.243708,0.000000)
+ Working on vertex 0
+		View dir for pt -4.304240, -8.982160, 7.080960 is 0.072740, 0.827779, 0.556319
+		Normal is -0.415942, 0.378616, 0.826827
+		LdotN is 0.852377
+	Diffuse is 0.596664
+		Reflection vector R is -0.709078, -0.061660, 0.702429
+		RdotV is 0.288156
+	Specular component is 0.000000
+	Total value for vertex is 0.896664
+ Working on vertex 1
+		View dir for pt -4.612000, -8.997200, 6.911280 is 0.077770, 0.826216, 0.557959
+		Normal is -0.513017, 0.388394, 0.765482
+		LdotN is 0.815914
+	Diffuse is 0.571139
+		Reflection vector R is -0.837156, -0.073315, 0.542028
+		RdotV is 0.176750
+	Specular component is 0.000000
+	Total value for vertex is 0.871139
+ Working on vertex 2
+		View dir for pt -4.508720, -9.279840, 7.130560 is 0.075895, 0.829525, 0.553289
+		Normal is -0.448298, 0.419878, 0.789133
+		LdotN is 0.854900
+	Diffuse is 0.598430
+		Reflection vector R is -0.766500, 0.010801, 0.642153
+		RdotV is 0.306082
+	Specular component is 0.000000
+	Total value for vertex is 0.898430
+Working on triangle 6
+	(-5.127360, 3.849280, 6.765200), color = (0.167350,0.167350,0.658564)
+	(-5.278160, 3.855600, 7.096160), color = (0.165779,0.165779,0.655731)
+	(-5.174880, 4.156000, 6.938960), color = (0.173682,0.173682,0.669979)
+ Working on vertex 0
+		View dir for pt -5.127360, 3.849280, 6.765200 is 0.103849, 0.732193, 0.673134
+		Normal is -0.913323, 0.051192, -0.404006
+		LdotN is -0.249477
+	Diffuse is 0.000000
+		Reflection vector R is 0.455706, -0.732649, -0.505526
+		RdotV is -0.829403
+	Specular component is 0.000000
+	Total value for vertex is 0.300000
+ Working on vertex 1
+		View dir for pt -5.278160, 3.855600, 7.096160 is 0.107362, 0.735204, 0.669289
+		Normal is -0.937065, -0.141847, -0.319044
+		LdotN is -0.325899
+	Diffuse is 0.000000
+		Reflection vector R is 0.610777, -0.614651, -0.499154
+		RdotV is -0.720399
+	Specular component is 0.000000
+	Total value for vertex is 0.300000
+ Working on vertex 2
+		View dir for pt -5.174880, 4.156000, 6.938960 is 0.105531, 0.730962, 0.674209
+		Normal is -0.846676, 0.219709, -0.484632
+		LdotN is -0.187329
+	Diffuse is 0.000000
+		Reflection vector R is 0.317214, -0.789422, -0.525536
+		RdotV is -0.897883
+	Specular component is 0.000000
+	Total value for vertex is 0.300000
+Working on triangle 7
+	(-5.174880, 4.156000, 6.938960), color = (0.173682,0.173682,0.669979)
+	(-4.934640, 3.973120, 7.147680), color = (0.157435,0.157435,0.640689)
+	(-4.871360, 4.214080, 7.014160), color = (0.175501,0.175501,0.673259)
+ Working on vertex 0
+		View dir for pt -5.174880, 4.156000, 6.938960 is 0.105531, 0.730962, 0.674209
+		Normal is -0.298006, 0.521185, 0.799724
+		LdotN is 0.934024
+	Diffuse is 0.653817
+		Reflection vector R is -0.556689, 0.266492, 0.786816
+		RdotV is 0.666526
+	Specular component is 0.000000
+	Total value for vertex is 0.953817
+ Working on vertex 1
+		View dir for pt -4.934640, 3.973120, 7.147680 is 0.100695, 0.735156, 0.670377
+		Normal is -0.298034, 0.521195, 0.799707
+		LdotN is 0.934019
+	Diffuse is 0.653813
+		Reflection vector R is -0.556739, 0.266505, 0.786776
+		RdotV is 0.667299
+	Specular component is 0.000000
+	Total value for vertex is 0.953813
+ Working on vertex 2
+		View dir for pt -4.871360, 4.214080, 7.014160 is 0.099593, 0.731632, 0.674385
+		Normal is -0.298020, 0.521202, 0.799708
+		LdotN is 0.934024
+	Diffuse is 0.653817
+		Reflection vector R is -0.556716, 0.266524, 0.786786
+		RdotV is 0.670149
+	Specular component is 0.000000
+	Total value for vertex is 0.953817
+Working on triangle 8
+	(-5.278160, 3.855600, 7.096160), color = (0.165779,0.165779,0.655731)
+	(-4.934640, 3.973120, 7.147680), color = (0.157435,0.157435,0.640689)
+	(-5.174880, 4.156000, 6.938960), color = (0.173682,0.173682,0.669979)
+ Working on vertex 0
+		View dir for pt -5.278160, 3.855600, 7.096160 is 0.107362, 0.735204, 0.669289
+		Normal is -0.298167, 0.521161, 0.799680
+		LdotN is 0.933976
+	Diffuse is 0.653783
+		Reflection vector R is -0.556961, 0.266396, 0.786656
+		RdotV is 0.662560
+	Specular component is 0.000000
+	Total value for vertex is 0.953783
+ Working on vertex 1
+		View dir for pt -4.934640, 3.973120, 7.147680 is 0.100695, 0.735156, 0.670377
+		Normal is -0.298034, 0.521195, 0.799707
+		LdotN is 0.934019
+	Diffuse is 0.653813
+		Reflection vector R is -0.556739, 0.266505, 0.786776
+		RdotV is 0.667299
+	Specular component is 0.000000
+	Total value for vertex is 0.953813
+ Working on vertex 2
+		View dir for pt -5.174880, 4.156000, 6.938960 is 0.105531, 0.730962, 0.674209
+		Normal is -0.298006, 0.521185, 0.799724
+		LdotN is 0.934024
+	Diffuse is 0.653817
+		Reflection vector R is -0.556689, 0.266492, 0.786816
+		RdotV is 0.666526
+	Specular component is 0.000000
+	Total value for vertex is 0.953817
+Working on triangle 9
+	(-4.871360, 4.214080, 7.014160), color = (0.175501,0.175501,0.673259)
+	(-4.971040, 4.429120, 6.836880), color = (0.181462,0.181462,0.684006)
+	(-5.174880, 4.156000, 6.938960), color = (0.173682,0.173682,0.669979)
+ Working on vertex 0
+		View dir for pt -4.871360, 4.214080, 7.014160 is 0.099593, 0.731632, 0.674385
+		Normal is -0.298020, 0.521202, 0.799708
+		LdotN is 0.934024
+	Diffuse is 0.653817
+		Reflection vector R is -0.556716, 0.266524, 0.786786
+		RdotV is 0.670149
+	Specular component is 0.000000
+	Total value for vertex is 0.953817
+ Working on vertex 1
+		View dir for pt -4.971040, 4.429120, 6.836880 is 0.101687, 0.727637, 0.678384
+		Normal is -0.298081, 0.521186, 0.799696
+		LdotN is 0.934005
+	Diffuse is 0.653803
+		Reflection vector R is -0.556817, 0.266473, 0.786732
+		RdotV is 0.670980
+	Specular component is 0.000000
+	Total value for vertex is 0.953803
+ Working on vertex 2
+		View dir for pt -5.174880, 4.156000, 6.938960 is 0.105531, 0.730962, 0.674209
+		Normal is -0.298006, 0.521185, 0.799724
+		LdotN is 0.934024
+	Diffuse is 0.653817
+		Reflection vector R is -0.556689, 0.266492, 0.786816
+		RdotV is 0.666526
+	Specular component is 0.000000
+	Total value for vertex is 0.953817
